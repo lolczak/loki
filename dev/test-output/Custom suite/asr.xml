@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="asr" failures="0" tests="1" time="115.969" errors="0">
+  <properties/>
+  <testcase name="basicTest" time="115.94" classname="org.speech.asr.recognition.frontend.ContextMfccTest"/>
+</testsuite>

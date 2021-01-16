@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+  <bean id="propertyPlaceholder"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:/cvt-stu.properties"/>
+  </bean>
+
+  <bean id="an4Learner" class="org.speech.asr.recognition.launcher.an4.An4CvtStuTest" lazy-init="false"
+        init-method="start">
+    <property name="logBase" value="${asr.logBase}"/>
+    <property name="noStatesPerStationary" value="${asr.noStatesPerStationary}"/>
+    <property name="noStatesPerTransition" value="${asr.noStatesPerTransition}"/>
+    <property name="dump" value="${asr.dump}"/>
+    <property name="samplingRate" value="${asr.an4.samplingRate}"/>
+    <property name="workDir" value="${asr.work.dir}"/>
+    <property name="amFile" value="${asr.an4.am.file}"/>
+    <property name="dictionaryFile" value="${asr.an4.dictionary.file}"/>
+    <property name="transcriptionFile" value="${asr.an4.transcription.file}"/>
+    <property name="phoneSetFile" value="${asr.an4.phoneSet.file}"/>
+    <property name="featureDir" value="${asr.an4.feature.dir}"/>
+    <property name="alphaInit" value="${asr.cvt.alphaInit}"/>
+    <property name="learningRate" value="${asr.cvt.learningRate}"/>
+    <property name="momentum" value="${asr.cvt.momentum}"/>
+    <property name="randomAmplitude" value="${asr.cvt.randomAmplitude}"/>
+    <property name="firstEpochNoCycles" value="${asr.cvt.firstEpochNoCycles}"/>
+    <property name="noCycles" value="${asr.cvt.noCycles}"/>
+    <property name="batchSize" value="${asr.cvt.batchSize}"/>
+    <property name="hiddenUnits" value="${asr.ann.hiddenUnits}"/>
+    <property name="bootstrapModelFile" value="${asr.an4.bootstrap.segmentation}"/>
+    <property name="alphaDelta" value="${asr.cvt.alphaDelta}"/>
+    <property name="contextSize" value="${asr.cvt.contextSize}"/>
+  </bean>
+
+</beans>

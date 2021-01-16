@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ASR Common Suite" parallel="true">
+  <test name="Utils test">
+    <classes>
+      <class name="org.speech.asr.common.BeanRestrictionsTest"/>
+    </classes>
+  </test>
+</suite>

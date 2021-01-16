@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+  <bean id="propertyPlaceholder"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:/bw-stu.properties"/>
+  </bean>
+
+  <bean id="an4Learner" class="org.speech.asr.recognition.launcher.an4.An4BwStuTest" lazy-init="false"
+        init-method="start">
+    <property name="noCycles" value="${asr.noCycles}"/>
+    <property name="logBase" value="${asr.logBase}"/>
+    <property name="minRelativeErrorChange" value="${asr.minRelativeErrorChange}"/>
+    <property name="noStatesPerStationary" value="${asr.noStatesPerStationary}"/>
+    <property name="noStatesPerTransition" value="${asr.noStatesPerTransition}"/>
+    <property name="deviationFloor" value="${asr.deviationFloor}"/>
+    <property name="dump" value="${asr.dump}"/>
+    <property name="samplingRate" value="${asr.an4.samplingRate}"/>
+    <property name="noMixtures" value="${asr.an4.noMixtures}"/>
+    <property name="workDir" value="${asr.work.dir}"/>
+    <property name="amFile" value="${asr.an4.am.file}"/>
+    <property name="dictionaryFile" value="${asr.an4.dictionary.file}"/>
+    <property name="transcriptionFile" value="${asr.an4.transcription.file}"/>
+    <property name="phoneSetFile" value="${asr.an4.phoneSet.file}"/>
+    <property name="featureDir" value="${asr.an4.feature.dir}"/>
+  </bean>
+
+</beans>

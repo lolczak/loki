@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="5" skipfailedinvocationCounts="false" verbose="1" name="Failed suite [Custom suite]" junit="false" annotations="JDK">
+  <test name="asr(failed)" junit="false" annotations="JDK">
+    <classes>
+      <class name="org.speech.asr.recognition.trainer.cvt.CvtTest">
+        <methods>
+          <include name="simpleTest"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>

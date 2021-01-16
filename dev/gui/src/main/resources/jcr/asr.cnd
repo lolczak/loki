@@ -1,0 +1,76 @@
+<mix = 'http://www.jcp.org/jcr/mix/1.0'>
+<nt = 'http://www.jcp.org/jcr/nt/1.0'>
+
+// main namespace
+<asr = 'http://asr.pl'>
+
+// base referenceable node type
+[asr:ref] > nt:base, mix:referenceable mixin orderable
+- * (*)
++ *
+
+// base node type
+[asr:base] > nt:base mixin orderable
+- * (*)
++ *
+
+// root node of repository
+[asr:root] > asr:base
++ asr:dictionaries 
++ asr:corpora
++ asr:acousticModels
++ asr:recognizers
+
+[asr:dictionaries] > asr:base
++ asr:dictionary multiple
+
+[asr:corpora] > asr:base
++ asr:corpus multiple
+
+[asr:acousticModels] > asr:base
++ asr:acousticModel multiple
+
+[asr:recognizers] > asr:base
++ asr:recognizer multiple
+
+[asr:dictionary] > asr:ref
+- asr:name (string)
+- asr:description (string)
+- asr:language (string)
+- asr:phoneticAlphabet (string)
++ asr:content (asr:resource)
+
+[asr:corpus] > asr:ref
+- asr:name (string)
+- asr:description (string)
+- asr:language (string)
++ asr:audioFormat (asr:audioFormat)
++ asr:transcribedUtterance multiple
+
+[asr:audioFormat] > asr:ref
+- asr:encoding (string)
+- asr:samplingRate (long)
+- asr:endian (long)
+- asr:signed (boolean)
+- asr:sampleSize (long)
+
+[asr:acousticModel] > asr:ref
+- asr:name (string)
+
+[asr:recognizer] > asr:ref
+- asr:name (string)
+- asr:description (string)
+- asr:acousticFeature (string)
++ asr:dict
++ asr:acousticModel
+
+[asr:transcribedUtterance] > asr:ref
+- asr:transcription (string)
++ asr:audioContent (asr:resource)
+
+[asr:data] > asr:ref
+- asr:binary (binary) mandatory
+
+[asr:resource] > nt:resource
+- * (*)
++ *

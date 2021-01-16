@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ASR Recognition Suite" parallel="true">
+
+  <test name="Math tests">
+    <classes>
+      <class name="org.speech.asr.recognition.math.MathUtilsTest"/>
+      <class name="org.speech.asr.recognition.math.LogScaleTest"/>
+    </classes>
+  </test>
+  <test name="Baum-Welch algorithm tests">
+    <classes>
+      <!--<class name="org.speech.asr.recognition.trainer.baumwelch.ForwardBackwardTest"/>-->
+      <!--<class name="org.speech.asr.recognition.trainer.baumwelch.ConvergenceTest"/>-->
+    </classes>
+  </test>
+</suite>

@@ -1,0 +1,14 @@
+<testng-results>
+  <reporter-output>
+  </reporter-output>
+  <suite name="Custom suite">
+    <groups>
+    </groups>
+    <test name="asr">
+      <class name="org.speech.asr.recognition.frontend.ContextMfccTest">
+        <test-method status="PASS" signature="basicTest()" name="basicTest" duration-ms="115940" started-at="2009-08-31T19:37:48Z" finished-at="2009-08-31T19:39:44Z">
+        </test-method>
+      </class>
+    </test>
+  </suite>
+</testng-results>

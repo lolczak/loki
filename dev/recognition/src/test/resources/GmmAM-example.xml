@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<acousticModel type="GMM_HMM">
+  <noDimensions>2</noDimensions>
+  <noMixtures>2</noMixtures>
+
+  <phoneticUnit name="a">
+    <state id="a1" index="0">
+      <selfLoopProbability>0.553</selfLoopProbability>
+      <gmm>
+        <mixtureComponent>
+          <weight>0.3</weight>
+          <dimension index="0" mean="0.1" deviation="0.3"/>
+          <dimension index="1" mean="0.3" deviation="0.2"/>
+        </mixtureComponent>
+      </gmm>
+    </state>
+  </phoneticUnit>
+
+</acousticModel>

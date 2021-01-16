@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="ASR" default="package" basedir=".">
+
+  <!-- PROPERTIES -->
+  <property name="config.dir" value="./tools/config"/>
+  <property name="lib.dir" value="./tools/libs/antlibs"/>
+  <property name="log4j.file" value="log4j-1.2.9.jar"/>
+  <property name="test.output.dir" value="test-output"/>
+  <property name="build.dir" value="build"/>
+  <property name="src.dir" value="src/main/"/>
+  <property name="target.dir" value="target"/>
+  <!--<property name="test.lib.dir" value="${basedir}/../server/lib"/>-->
+
+  <property file="${config.dir}/build.properties"/>
+  <property file="${config.dir}/${user.name}/build.properties"/>
+  <filter filtersfile="${config.dir}/build.properties"/>
+  <filter filtersfile="${config.dir}/${user.name}/build.properties"/>
+
+  <path id="sources">
+    <fileset dir="." includes="**/*.java"/>
+  </path>
+
+  <!--<path id="dependecies">-->
+  <!--<fileset dir="${lib.dir}">-->
+  <!--<include name="*.jar"/>-->
+  <!--</fileset>-->
+  <!--</path>-->
+
+  <!-- MACROS -->
+  <macrodef name="runOnProject">
+    <attribute name="project"/>
+    <attribute name="target"/>
+    <sequential>
+      <echo message="running target: @{target} on project: @{project}"/>
+      <subant target="@{target}" failonerror="true">
+        <fileset dir="@{project}" includes="build.xml"/>
+      </subant>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="maven">
+    <attribute name="goal"/>
+    <attribute name="dir"/>
+    <attribute name="testSkip" default="false"/>
+    <attribute name="profile" default="dev"/>
+    <sequential>
+      <exec dir="@{dir}" executable="${maven.bin.dir}/${maven.exe}" failonerror="true">
+        <arg value="@{goal}"/>
+        <arg value="-DskipTests=@{testSkip}"/>
+        <arg value="-Denv=@{profile}"/>
+      </exec>
+    </sequential>
+  </macrodef>
+
+  <!-- targets -->
+
+  <target name="clean" depends="maven.setup">
+    <delete dir="${test.output.dir}"/>
+    <delete dir="${build.dir}"/>
+    <maven goal="clean" dir="."/>
+  </target>
+
+  <target name="install" description="Install all modules" depends="maven.setup, clean">
+    <maven goal="install" dir="."/>
+  </target>
+
+  <target name="package" description="Package all modules" depends="maven.setup, clean">
+    <maven goal="package" dir="."/>
+  </target>
+
+  <target name="resources" description="Process resources all modules" depends="maven.setup, clean">
+    <maven goal="process-resources" dir="."/>
+  </target>
+
+  <target name="test.all" description="Run tests on all modules" depends="maven.setup, clean, install.common">
+    <maven dir="." goal="test"/>
+  </target>
+
+  <target name="install.common" depends="maven.setup">
+    <maven goal="clean" dir="./common"/>
+    <maven goal="install" dir="./common"/>
+  </target>
+
+  <target name="clear.jcr">
+    <echo message="Cleaning ${jcr.repo.dir} jcr repo dir"/>
+    <delete quiet="false" includeemptydirs="true" includesfile="**/*.*" failonerror="true">
+      <fileset dir="${jcr.repo.dir}">
+        <include name="**/*"/>
+        <include name="**/\.*"/>
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="maven.setup" depends="os-props, win, not-win"/>
+
+  <target name="os-props">
+    <condition property="windows">
+      <os family="windows"/>
+    </condition>
+  </target>
+
+  <target name="win" if="windows">
+    <property name="maven.exe" value="mvn.bat"/>
+  </target>
+
+  <target name="not-win" unless="windows">
+    <property name="maven.exe" value="mvn"/>
+  </target>
+
+</project>

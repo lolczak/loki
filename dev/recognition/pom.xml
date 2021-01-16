@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<project>
+  <parent>
+    <artifactId>asr</artifactId>
+    <groupId>org.speech</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.speech.asr</groupId>
+  <artifactId>recognition</artifactId>
+  <name>recognition</name>
+  <version>1.0-SNAPSHOT</version>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <config.dir>../tools/config</config.dir>
+  </properties>
+
+  <build>
+    <finalName>recognition</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <suiteXmlFiles>
+            <suiteXmlFile>testng.xml</suiteXmlFile>
+          </suiteXmlFiles>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>assembly.xml</descriptor>
+          </descriptors>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>org.speech.asr.recognition.launcher.Bootstrap</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+    </plugins>
+    <filters>
+      <filter>${config.dir}/build.properties</filter>
+      <filter>${config.dir}/${user.name}/build.properties</filter>
+    </filters>
+
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+        <excludes>
+          <exclude>**/*.png</exclude>
+          <exclude>**/*.jpg</exclude>
+          <exclude>**/*.gif</exclude>
+        </excludes>
+      </resource>
+
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>false</filtering>
+        <includes>
+          <include>**/*.png</include>
+          <include>**/*.jpg</include>
+          <include>**/*.gif</include>
+        </includes>
+      </resource>
+
+    </resources>
+
+    <testResources>
+      <testResource>
+        <directory>${basedir}/src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+      <testResource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+
+  </build>
+
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.speech.asr</groupId>
+      <artifactId>common</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.speech.asr</groupId>
+      <artifactId>media</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>edu.cmu.sphinx</groupId>
+      <artifactId>sphinx4</artifactId>
+      <version>1.0.0.BETA2</version>
+    </dependency>
+    <dependency>
+      <groupId>edu.cmu.sphinx</groupId>
+      <artifactId>sphinx4-research</artifactId>
+      <version>1.0.0.BETA2</version>
+    </dependency>
+    <dependency>
+      <groupId>edu.cmu.sphinx</groupId>
+      <artifactId>sphinx4-tags</artifactId>
+      <version>1.0.0.BETA2</version>
+    </dependency>
+    <dependency>
+      <groupId>edu.cmu.sphinx</groupId>
+      <artifactId>sphinx4-js</artifactId>
+      <version>1.0.0.BETA2</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.speech</groupId>
+      <artifactId>jsapi</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.joone</groupId>
+      <artifactId>joone-engine</artifactId>
+      <version>2.0.0RC1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring</artifactId>
+      <version>2.5.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.4</version>
+    </dependency>
+  </dependencies>
+</project>

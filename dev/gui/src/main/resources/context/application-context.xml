@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+  <context:annotation-config/>
+
+  <bean id="repoTreeCellRenderer" class="org.speech.asr.gui.renderer.RepoTreeCellRenderer" scope="prototype">
+    <property name="scalingImageSource" ref="scalingImageSource"/>
+    <property name="messageSource" ref="messageSource"/>
+  </bean>
+
+  <bean id="repoTreeModel" class="org.speech.asr.gui.model.RepoTreeModel">
+    <property name="eventDispatcher" ref="eventDispatcher"/>
+    <property name="commandGroupMap" ref="repoTreeCommandGroupMap"/>
+    <property name="dictionaryBean" ref="dictionaryBean"/>
+    <property name="corpusBean" ref="corpusBean"/>
+  </bean>
+
+  <bean id="eventDispatcher" class="org.speech.asr.common.event.SimpleSynchronousEventDispatcher">
+
+  </bean>
+
+  <bean id="dictionaryBean" class="org.speech.asr.gui.logic.DictionaryBeanImpl">
+    <property name="jcrTemplate" ref="jcrTemplate"/>
+  </bean>
+
+  <bean id="corpusBean" class="org.speech.asr.gui.logic.CorpusBeanImpl">
+    <property name="jcrTemplate" ref="jcrTemplate"/>
+  </bean>
+
+  <util:map id="repoTreeCommandGroupMap" key-type="java.lang.String" value-type="java.util.List">
+    <entry key="DICTIONARY">
+      <list>
+        <value>editDictionaryCommand</value>
+        <value>deleteDictionaryCommand</value>
+      </list>
+    </entry>
+    <entry key="DICTIONARIES">
+      <list>
+        <value>newDictionaryCommand</value>
+      </list>
+    </entry>
+    <entry key="CORPORA">
+      <list>
+        <value>newCorpusCommand</value>
+      </list>
+    </entry>
+    <entry key="CORPUS">
+      <list>
+        <value>editCorpusCommand</value>
+        <value>deleteCorpusCommand</value>
+      </list>
+    </entry>
+  </util:map>
+
+  <bean id="dictionary.editorBean" class="org.speech.asr.gui.view.editor.dictionary.DictionaryEditor" scope="prototype">
+    <property name="imageSource" ref="scalingImageSource"/>
+    <property name="messageSource" ref="messageSource"/>
+    <property name="dictionaryBean" ref="dictionaryBean"/>
+  </bean>
+
+  <bean id="corpus.editorBean" class="org.speech.asr.gui.view.editor.corpus.CorpusEditor" scope="prototype">
+    <property name="imageSource" ref="scalingImageSource"/>
+    <property name="messageSource" ref="messageSource"/>
+    <property name="corpusBean" ref="corpusBean"/>
+  </bean>
+
+</beans>

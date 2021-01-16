@@ -1,0 +1,228 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+    <groupId>org.speech</groupId>
+    <artifactId>asr</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.speech.asr</groupId>
+  <artifactId>gui</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>gui</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <springRichclient.version>1.0.0</springRichclient.version>
+    <config.dir>../tools/config</config.dir>
+  </properties>
+
+  <build>
+    <finalName>gui</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <suiteXmlFiles>
+            <suiteXmlFile>testng.xml</suiteXmlFile>
+          </suiteXmlFiles>
+        </configuration>
+      </plugin>
+
+    </plugins>
+    <filters>
+      <filter>${config.dir}/build.properties</filter>
+      <filter>${config.dir}/${user.name}/build.properties</filter>
+    </filters>
+
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+        <excludes>
+          <exclude>**/*.png</exclude>
+          <exclude>**/*.jpg</exclude>
+          <exclude>**/*.gif</exclude>
+        </excludes>
+      </resource>
+
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>false</filtering>
+        <includes>
+          <include>**/*.png</include>
+          <include>**/*.jpg</include>
+          <include>**/*.gif</include>
+        </includes>
+      </resource>
+
+    </resources>
+
+    <testResources>
+      <testResource>
+        <directory>${basedir}/src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+      <testResource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+
+  </build>
+
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.richclient</groupId>
+      <artifactId>spring-richclient-resources</artifactId>
+      <version>${springRichclient.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.richclient</groupId>
+      <artifactId>spring-richclient-core</artifactId>
+      <version>${springRichclient.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.richclient</groupId>
+      <artifactId>spring-richclient-binding</artifactId>
+      <version>${springRichclient.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.richclient</groupId>
+      <artifactId>spring-richclient-form</artifactId>
+      <version>${springRichclient.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.richclient</groupId>
+      <artifactId>spring-richclient-support</artifactId>
+      <version>${springRichclient.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.richclient</groupId>
+      <artifactId>spring-richclient-tiger</artifactId>
+      <version>0.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.richclient</groupId>
+      <artifactId>spring-richclient-sandbox</artifactId>
+      <version>${springRichclient.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.richclient</groupId>
+      <artifactId>spring-richclient-docking</artifactId>
+      <version>${springRichclient.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.vlsolutions</groupId>
+      <artifactId>vldocking</artifactId>
+      <version>2.1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jgoodies</groupId>
+      <artifactId>looks</artifactId>
+      <version>2.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.help</groupId>
+      <artifactId>javahelp</artifactId>
+      <version>2.0.02</version>
+    </dependency>
+    <dependency>
+      <groupId>net.java.dev.glazedlists</groupId>
+      <artifactId>glazedlists_java15</artifactId>
+      <version>1.8.0</version>
+    </dependency>
+
+    <!-- Jackrabbit -->
+    <dependency>
+      <groupId>org.apache.jackrabbit</groupId>
+      <artifactId>jackrabbit-core</artifactId>
+      <version>1.5.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springmodules</groupId>
+      <artifactId>spring-modules-jcr</artifactId>
+      <version>0.8a</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.jackrabbit</groupId>
+          <artifactId>jackrabbit-jca</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.jackrabbit</groupId>
+          <artifactId>jackrabbit-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.jackrabbit</groupId>
+          <artifactId>jackrabbit-jcr-commons</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.jackrabbit</groupId>
+          <artifactId>jackrabbit-jcr-rmi</artifactId>
+        </exclusion>
+
+        <exclusion>
+          <groupId>org.apache.lucene</groupId>
+          <artifactId>lucene-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.speech.asr</groupId>
+      <artifactId>common</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.speech.asr</groupId>
+      <artifactId>media</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jvnet</groupId>
+      <artifactId>substance</artifactId>
+      <version>5.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.miglayout</groupId>
+      <artifactId>miglayout</artifactId>
+      <version>3.7</version>
+    </dependency>
+
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>springRichclientRepository</id>
+      <name>Spring rich client repository</name>
+      <url>http://spring-rich-c.sourceforge.net/maven2repository</url>
+    </repository>
+  </repositories>
+
+</project>

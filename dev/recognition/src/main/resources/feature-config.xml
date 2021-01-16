@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	Sphinx-4 Configuration file
+-->
+
+<!-- ******************************************************** -->
+<!--  biship  configuration file                              -->
+<!-- ******************************************************** -->
+
+<config>
+  <!-- ******************************************************** -->
+  <!-- frequently tuned properties                              -->
+  <!-- ******************************************************** -->
+
+  <property name="absoluteBeamWidth" value="1000"/>
+  <property name="relativeBeamWidth" value="1E-90"/>
+  <property name="absoluteWordBeamWidth" value="50"/>
+  <property name="relativeWordBeamWidth" value="1E-60"/>
+  <property name="wordInsertionProbability" value=".7"/>
+  <property name="languageWeight" value="7.0"/>
+  <property name="silenceInsertionProbability" value=".1"/>
+
+  <property name="recognizer" value="recognizer"/>
+  <property name="sampleRate" value="8000"/>
+  <property name="bitsPerSample" value="16"/>
+  <property name="logLevel" value="CONFIG"/>
+  <property name="showCreations" value="true"/>
+
+  <component name="clean8khzMFCC" type="edu.cmu.sphinx.frontend.FrontEnd">
+    <propertylist name="pipeline">
+      <item>audioConsumer</item>
+      <item>premphasizer</item>
+      <!--<item>dither</item>-->
+      <item>windower</item>
+      <item>fft</item>
+      <item>melFilterBank</item>
+      <item>dct</item>
+      <!--<item>batchCMN</item>-->
+      <item>featureExtraction</item>
+    </propertylist>
+  </component>
+
+
+  <component name="clean16khzMFCC" type="edu.cmu.sphinx.frontend.FrontEnd">
+    <propertylist name="pipeline">
+      <item>audioConsumer</item>
+      <item>premphasizer</item>
+      <!--<item>dither</item>-->
+      <item>windower</item>
+      <item>16fft</item>
+      <item>16melFilterBank</item>
+      <item>16dct</item>
+      <!--<item>batchCMN</item>-->
+      <item>featureExtraction</item>
+    </propertylist>
+  </component>
+  <!--<component name="batchFrontEnd" type="edu.cmu.sphinx.frontend.FrontEnd">-->
+  <!--<propertylist name="pipeline">-->
+  <!--<item>audioConsumer</item>-->
+  <!--<item>premphasizer</item>-->
+  <!--<item>windower</item>-->
+  <!--<item>fft</item>-->
+  <!--<item>melFilterBank</item>-->
+  <!--<item>dct</item>-->
+  <!--<item>batchCMN</item>-->
+  <!--<item>featureExtraction</item>-->
+  <!--</propertylist>-->
+  <!--</component>-->
+
+  <!-- ******************************************************** -->
+  <!-- The live frontend configuration                          -->
+  <!-- ******************************************************** -->
+  <!--<component name="epFrontEnd" type="edu.cmu.sphinx.frontend.FrontEnd">-->
+  <!--<propertylist name="pipeline">-->
+  <!--<item>audioConsumer</item>-->
+  <!--<item>speechClassifier</item>-->
+  <!--<item>speechMarker</item>-->
+  <!--<item>nonSpeechDataFilter</item>-->
+  <!--<item>premphasizer</item>-->
+  <!--<item>windower</item>-->
+  <!--<item>fft</item>-->
+  <!--<item>melFilterBank</item>-->
+  <!--<item>dct</item>-->
+  <!--<item>liveCMN</item>-->
+  <!--<item>featureExtraction</item>-->
+  <!--</propertylist>-->
+  <!--</component>-->
+
+  <!-- <component name="microphone"
+             type="edu.cmu.sphinx.frontend.util.Microphone">
+    <property name="sampleRate" value="${sampleRate}"/>
+    <property name="bitsPerSample" value="${bitsPerSample}"/>
+    <property name="closeBetweenUtterances" value="false"/>
+  </component>-->
+
+  <component name="audioConsumer" type="org.speech.asr.recognition.frontend.AudioInputAdapter"/>
+
+  <component name="speechClassifier"
+             type="edu.cmu.sphinx.frontend.endpoint.SpeechClassifier">
+    <property name="threshold" value="13"/>
+  </component>
+
+  <component name="nonSpeechDataFilter"
+             type="edu.cmu.sphinx.frontend.endpoint.NonSpeechDataFilter"/>
+
+  <component name="speechMarker"
+             type="edu.cmu.sphinx.frontend.endpoint.SpeechMarker">
+    <property name="speechTrailer" value="50"/>
+  </component>
+
+  <component name="premphasizer"
+             type="edu.cmu.sphinx.frontend.filter.Preemphasizer">
+    <!--   <property name="preemphasisFactor" value="0.97"/>-->
+  </component>
+
+  <component name="windower"
+             type="edu.cmu.sphinx.frontend.window.RaisedCosineWindower"/>
+
+  <component name="fft"
+             type="edu.cmu.sphinx.frontend.transform.DiscreteFourierTransform">
+    <property name="numberFftPoints" value="256"/>
+  </component>
+
+  <component name="melFilterBank"
+             type="edu.cmu.sphinx.frontend.frequencywarp.MelFrequencyFilterBank">
+    <property name="numberFilters" value="31"/>
+    <property name="minimumFrequency" value="200"/>
+    <property name="maximumFrequency" value="3500"/>
+  </component>
+
+  <component name="dct"
+             type="edu.cmu.sphinx.frontend.transform.DiscreteCosineTransform">
+    <property name="numberFilters" value="31"/>
+  </component>
+
+  <component name="liveCMN"
+             type="edu.cmu.sphinx.frontend.feature.LiveCMN"/>
+
+  <component name="batchCMN"
+             type="edu.cmu.sphinx.frontend.feature.BatchCMN"/>
+
+  <component name="featureExtraction"
+             type="edu.cmu.sphinx.frontend.feature.DeltasFeatureExtractor"/>
+
+  <component name="dither" type="edu.cmu.sphinx.frontend.filter.Dither"/>
+
+
+  <component name="16fft"
+             type="edu.cmu.sphinx.frontend.transform.DiscreteFourierTransform">
+  </component>
+
+  <component name="16melFilterBank"
+             type="edu.cmu.sphinx.frontend.frequencywarp.MelFrequencyFilterBank">
+  </component>
+
+  <component name="16dct"
+             type="edu.cmu.sphinx.frontend.transform.DiscreteCosineTransform">
+  </component>
+
+  <component name="audioFileSource" type="edu.cmu.sphinx.frontend.util.AudioFileDataSource">
+
+  </component>
+
+  <!--<component name="logMath" type="edu.cmu.sphinx.util.LogMath">-->
+  <!--<property name="logBase" value="1.0001"/>-->
+  <!--<property name="useAddTable" value="true"/>-->
+  <!--</component>-->
+
+</config>
